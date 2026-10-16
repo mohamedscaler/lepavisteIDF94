@@ -4,1150 +4,504 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Épaviste Île-de-France – Enlèvement d'épave gratuit 24h/24 | L'Epaviste IDF</title>
-  <meta name="description" content="Épaviste agréé VHU en Île-de-France. Enlèvement d'épave gratuit et rachat de véhicules dans l'état, 24h/24. Paris, 92, 93, 94 et toute l'IDF. ☎ 06 68 35 25 38">
+  <meta name="description" content="Épaviste agréé VHU en Île-de-France. Enlèvement d'épave gratuit et rachat de véhicules, 24h/24. ☎ 06 68 35 25 38">
+  <meta name="theme-color" content="#08170f">
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+  <link rel="preload" as="image" href="images/hero.jpg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- TRACKING ADS : coller ici le code Google Tag (gtag.js) et le Meta Pixel.
+       Les clics "Appeler" et "WhatsApp" envoient déjà les événements (voir script en bas). -->
 
   <style>
-    /* =========================================================
-       VARIABLES
-       ========================================================= */
     :root {
       --color-dark: #08170f;
       --color-dark-2: #0e2318;
-      --color-dark-3: #173325;
       --color-accent: #3ddc78;
       --color-accent-dark: #1fae55;
       --color-white: #ffffff;
-      --color-light: #eef4ef;
+      --color-light: #f1f5f1;
       --color-grey: #8fa597;
       --color-text: #0f1f16;
-      --color-border: rgba(61, 220, 120, 0.14);
+      --color-muted: #4a5d51;
+      --color-border: rgba(61, 220, 120, 0.16);
       --font-heading: "Barlow Condensed", sans-serif;
       --font-body: "Barlow", sans-serif;
-      --radius-small: 0.5rem;
-      --radius-medium: 1rem;
+      --ease: cubic-bezier(.2, .7, .2, 1);
     }
-
-    /* =========================================================
-       RESET / BASE
-       ========================================================= */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-body);
-      font-size: 1rem;
-      line-height: 1.5;
-      color: var(--color-text);
-      background: var(--color-light);
-      -webkit-font-smoothing: antialiased;
-    }
+    html { scroll-behavior: smooth; overflow-x: clip; }
+    body { font-family: var(--font-body); line-height: 1.5; color: var(--color-text); background: var(--color-light); -webkit-font-smoothing: antialiased; }
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
-    svg { flex-shrink: 0; }
+    select, button { font: inherit; }
 
-    /* =========================================================
-       CLIENT-FIRST : STRUCTURE GLOBALE
-       ========================================================= */
+    /* ===== Client-First : structure ===== */
     .padding-global { padding-left: 5%; padding-right: 5%; }
-    .container-large { max-width: 80rem; margin: 0 auto; }
-    .container-medium { max-width: 64rem; margin: 0 auto; }
-    .padding-section-large { padding-top: 7rem; padding-bottom: 7rem; }
-    .padding-section-medium { padding-top: 5rem; padding-bottom: 5rem; }
-    .padding-section-small { padding-top: 1.5rem; padding-bottom: 1.5rem; }
-
-    /* Marges utilitaires */
-    .margin-bottom { margin-top: 0 !important; margin-left: 0 !important; margin-right: 0 !important; }
-    .margin-bottom.margin-xsmall { margin-bottom: 0.75rem; }
-    .margin-bottom.margin-small { margin-bottom: 1.25rem; }
-    .margin-bottom.margin-medium { margin-bottom: 2rem; }
-    .margin-bottom.margin-large { margin-bottom: 3.5rem; }
-
-    /* Typographie */
-    .heading-style-h1, .heading-style-h2, .heading-style-h3, .heading-style-h4 {
-      font-family: var(--font-heading);
-      font-weight: 800;
-      line-height: 1;
-      text-transform: uppercase;
-      letter-spacing: -0.01em;
-    }
-    .heading-style-h1 { font-size: 4.5rem; }
-    .heading-style-h2 { font-size: 3.25rem; }
-    .heading-style-h3 { font-size: 1.75rem; font-weight: 700; }
-    .heading-style-h4 { font-size: 1.375rem; font-weight: 700; }
-    .text-size-large { font-size: 1.25rem; }
-    .text-size-medium { font-size: 1.125rem; }
-    .text-size-small { font-size: 0.875rem; }
-    .text-weight-semibold { font-weight: 600; }
+    .container-large { max-width: 78rem; margin: 0 auto; }
+    .padding-section-large { padding-top: 6rem; padding-bottom: 6rem; }
+    .heading-style-h1, .heading-style-h2, .heading-style-h3 { font-family: var(--font-heading); font-weight: 800; line-height: 0.95; text-transform: uppercase; }
+    .heading-style-h1 { font-size: clamp(3rem, 7vw, 5.75rem); }
+    .heading-style-h2 { font-size: clamp(2.25rem, 4.5vw, 3.75rem); }
+    .heading-style-h3 { font-size: 1.5rem; font-weight: 700; }
     .text-color-accent { color: var(--color-accent); }
-    .text-color-grey { color: var(--color-grey); }
-    .text-color-white { color: var(--color-white); }
-    .text-align-center { text-align: center; }
+    .margin-bottom.margin-medium { margin-bottom: 2.5rem; }
 
-    /* Tag / sur-titre */
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8125rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--color-accent-dark);
-    }
-    .tag.is-dark { color: var(--color-accent); }
-    .tag_dot {
-      width: 0.5rem; height: 0.5rem; border-radius: 50%;
-      background: var(--color-accent);
-      box-shadow: 0 0 0 0 rgba(61, 220, 120, 0.7);
-      animation: beacon 1.6s infinite;
-    }
-    @keyframes beacon {
-      0% { box-shadow: 0 0 0 0 rgba(61, 220, 120, 0.7); }
-      70% { box-shadow: 0 0 0 0.6rem rgba(61, 220, 120, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(61, 220, 120, 0); }
-    }
-
-    /* Boutons */
     .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.625rem;
-      padding: 1rem 1.75rem;
-      border-radius: var(--radius-small);
-      background: var(--color-accent);
-      color: var(--color-dark);
-      font-weight: 700;
-      font-size: 1.0625rem;
-      border: 2px solid var(--color-accent);
-      transition: background 0.2s, transform 0.2s, border-color 0.2s;
-      white-space: nowrap;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.625rem;
+      padding: 1.125rem 1.75rem; border-radius: 0.5rem;
+      background: var(--color-accent); color: var(--color-dark); border: 0;
+      font-weight: 700; font-size: 1.125rem; white-space: nowrap; cursor: pointer;
+      transition: transform 0.25s var(--ease), background 0.25s;
     }
-    .button:hover { background: var(--color-accent-dark); border-color: var(--color-accent-dark); transform: translateY(-2px); }
-    .button.is-secondary { background: transparent; color: var(--color-white); border-color: rgba(255, 255, 255, 0.3); }
-    .button.is-secondary:hover { border-color: var(--color-white); background: rgba(255, 255, 255, 0.05); }
-    .button.is-dark { background: var(--color-dark); color: var(--color-white); border-color: var(--color-dark); }
-    .button.is-dark:hover { background: var(--color-dark-3); border-color: var(--color-dark-3); }
-    .button.is-large { padding: 1.25rem 2.25rem; font-size: 1.25rem; }
-    .button.is-small { padding: 0.625rem 1.125rem; font-size: 0.9375rem; }
-    .button-group { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .button:hover { transform: translateY(-2px); background: #5ae890; }
+    .button.is-ghost { background: rgba(255, 255, 255, 0.08); color: var(--color-white); backdrop-filter: blur(8px); }
+    .button.is-ghost:hover { background: rgba(255, 255, 255, 0.16); }
+    .button.is-whatsapp { background: #25d366; color: var(--color-white); }
+    .button.is-full { width: 100%; }
+    .icon { width: 1.25em; height: 1.25em; flex-shrink: 0; }
 
-    /* Placeholder photo : visible tant que l'image n'est pas ajoutée */
-    .image-wrapper {
-      position: relative;
-      overflow: hidden;
-      background:
-        repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 12px, transparent 12px 24px),
-        var(--color-dark-3);
-    }
-    .image-wrapper_placeholder {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--color-grey);
-      font-size: 0.875rem; font-weight: 600;
-      text-align: center; padding: 1rem;
-    }
-    .image-wrapper img {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-    }
+    /* ===== Navbar ===== */
+    .navbar_component { position: fixed; inset: 0 0 auto; z-index: 50; transition: background 0.3s, box-shadow 0.3s; }
+    .navbar_component.is-scrolled { background: rgba(8, 23, 15, 0.9); backdrop-filter: blur(10px); box-shadow: 0 1px 0 var(--color-border); }
+    .navbar_container { display: flex; align-items: center; justify-content: space-between; height: 4.5rem; }
+    .navbar_logo { height: 2.5rem; width: auto; }
+    .navbar_phone { display: flex; align-items: center; gap: 0.5rem; color: var(--color-white); font-weight: 700; font-size: 1.125rem; }
+    .navbar_phone .icon { color: var(--color-accent); }
 
-    /* =========================================================
-       NAVBAR
-       ========================================================= */
-    .navbar_component {
-      position: sticky; top: 0; z-index: 50;
-      background: rgba(8, 23, 15, 0.85);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--color-border);
-    }
-    .navbar_container {
-      display: flex; align-items: center; justify-content: space-between;
-      height: 4.5rem;
-    }
-    .navbar_logo {
-      display: flex; align-items: center; gap: 0.625rem;
-      font-family: var(--font-heading);
-      font-size: 1.5rem; font-weight: 800;
-      text-transform: uppercase;
-      color: var(--color-white);
-      letter-spacing: 0.01em;
-    }
-    .navbar_logo-img { height: 2.75rem; width: auto; }
-    .footer_logo { height: 3.5rem; width: auto; }
-    .navbar_logo-icon {
-      width: 2.25rem; height: 2.25rem;
-      border-radius: var(--radius-small);
-      background: var(--color-accent);
-      color: var(--color-dark);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .navbar_right { display: flex; align-items: center; gap: 1.5rem; }
-    .navbar_status {
-      display: flex; align-items: center; gap: 0.5rem;
-      color: var(--color-grey); font-size: 0.875rem; font-weight: 600;
-    }
+    /* ===== Hero : photo plein écran ===== */
+    .section_hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; color: var(--color-white); overflow: hidden; background: var(--color-dark); }
+    .hero_bg { position: absolute; inset: 0; }
+    .hero_bg img { width: 100%; height: 100%; object-fit: cover; object-position: 60% center; animation: kenburns 18s ease-out both; }
+    .hero_bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,23,15,.95) 0%, rgba(8,23,15,.75) 45%, rgba(8,23,15,.35) 100%), linear-gradient(0deg, rgba(8,23,15,.9), transparent 45%); }
+    @keyframes kenburns { from { transform: scale(1.15); } to { transform: scale(1); } }
+    .section_hero .padding-global { position: relative; z-index: 1; width: 100%; }
+    .hero_component { display: grid; grid-template-columns: 1fr 24rem; gap: 4rem; align-items: end; padding: 8rem 0 4rem; }
+    .hero_rating { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; font-weight: 600; }
+    .hero_rating .stars { color: var(--color-accent); letter-spacing: 0.1em; }
+    .hero_subtitle { margin: 1.5rem 0 2.25rem; font-size: 1.25rem; color: #c8d8ce; }
+    .hero_buttons { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+    /* Animation du titre mot par mot (spans créés en JS) */
+    .split-word { display: inline-block; overflow: hidden; vertical-align: top; }
+    .split-word > span { display: inline-block; transform: translateY(105%); animation: wordUp 0.9s var(--ease) forwards; }
+    @keyframes wordUp { to { transform: translateY(0); } }
+    .fade-in { opacity: 0; animation: fadeUp 0.8s var(--ease) forwards; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(1.5rem); } to { opacity: 1; transform: none; } }
 
-    /* =========================================================
-       HERO
-       ========================================================= */
-    .section_hero {
-      background:
-        radial-gradient(ellipse at 85% 10%, rgba(61, 220, 120, 0.12), transparent 50%),
-        var(--color-dark);
-      color: var(--color-white);
-      overflow: hidden;
-      position: relative;
-    }
-    /* Halos verts qui dérivent lentement en arrière-plan */
-    .hero_blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.35;
-      pointer-events: none;
-    }
-    .hero_blob.is-1 { width: 32rem; height: 32rem; background: var(--color-accent); top: -10rem; right: -8rem; animation: drift 14s ease-in-out infinite alternate; }
-    .hero_blob.is-2 { width: 24rem; height: 24rem; background: #0f7a45; bottom: -10rem; left: -6rem; animation: drift 18s ease-in-out infinite alternate-reverse; }
-    @keyframes drift {
-      from { transform: translate(0, 0) scale(1); }
-      to { transform: translate(-4rem, 3rem) scale(1.15); }
-    }
-    /* Grille discrète façon plan technique */
-    .hero_grid-bg {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(rgba(61, 220, 120, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(61, 220, 120, 0.06) 1px, transparent 1px);
-      background-size: 4rem 4rem;
-      mask-image: radial-gradient(ellipse at 70% 30%, #000 20%, transparent 70%);
-      -webkit-mask-image: radial-gradient(ellipse at 70% 30%, #000 20%, transparent 70%);
-      pointer-events: none;
-    }
-    .section_hero .padding-global { position: relative; z-index: 1; }
-    /* Mot surligné : soulignement qui se dessine au chargement */
-    .hero_highlight {
-      background: linear-gradient(var(--color-accent), var(--color-accent)) no-repeat left 92% / 0% 0.1em;
-      animation: underline 1s 0.9s cubic-bezier(.65,0,.35,1) forwards;
-    }
-    @keyframes underline { to { background-size: 100% 0.1em; } }
-    .hero_component {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
-    .hero_subtitle { color: #b5c9bc; max-width: 34rem; }
-    .hero_badges {
-      display: flex; flex-wrap: wrap; gap: 0.75rem;
-      margin-top: 2.5rem;
-    }
-    .hero_badge {
-      display: flex; align-items: center; gap: 0.625rem;
-      padding: 0.625rem 1rem;
-      border: 1px solid var(--color-border);
-      border-radius: 6rem;
-      background: rgba(255, 255, 255, 0.03);
-      font-size: 0.9375rem; font-weight: 600;
-    }
-    .hero_badge svg { color: var(--color-accent); }
-    .hero_visual { position: relative; }
-    .hero_image-wrapper {
-      aspect-ratio: 4 / 5;
-      border-radius: var(--radius-medium);
-    }
-    .hero_rating-card {
-      position: absolute;
-      left: -2rem; bottom: 2.5rem;
-      background: var(--color-white);
-      color: var(--color-dark);
-      border-radius: var(--radius-medium);
-      padding: 1.25rem 1.5rem;
-      box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.4);
-    }
-    .hero_rating-score {
-      font-family: var(--font-heading);
-      font-size: 2.75rem; font-weight: 800; line-height: 1;
-    }
-    .stars { display: flex; gap: 0.125rem; color: var(--color-accent); margin: 0.375rem 0; }
-    .hero_urgence-card {
-      position: absolute;
-      right: -1.5rem; top: 2rem;
-      background: var(--color-accent);
-      color: var(--color-dark);
-      border-radius: var(--radius-medium);
-      padding: 1rem 1.25rem;
-      font-weight: 700;
-      line-height: 1.2;
-      box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.35);
-    }
-    .hero_urgence-card span {
-      display: block;
-      font-family: var(--font-heading);
-      font-size: 2rem; font-weight: 800;
-    }
+    /* Formulaire express → WhatsApp */
+    .quote_component { background: rgba(14, 35, 24, 0.82); backdrop-filter: blur(14px); border: 1px solid var(--color-border); border-radius: 1rem; padding: 1.75rem; }
+    .quote_title { font-family: var(--font-heading); font-size: 1.75rem; font-weight: 800; text-transform: uppercase; line-height: 1; margin-bottom: 1.25rem; }
+    .quote_field { display: block; margin-bottom: 0.875rem; }
+    .quote_label { display: block; font-size: 0.8125rem; color: var(--color-grey); margin-bottom: 0.375rem; }
+    .quote_select { width: 100%; padding: 0.875rem 1rem; border-radius: 0.5rem; border: 1px solid var(--color-border); background: var(--color-dark); color: var(--color-white); appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--color-accent) 50%), linear-gradient(135deg, var(--color-accent) 50%, transparent 50%); background-position: calc(100% - 1.25rem) 55%, calc(100% - 0.9rem) 55%; background-size: 0.35rem 0.35rem; background-repeat: no-repeat; }
+    .quote_select:focus { outline: 2px solid var(--color-accent); outline-offset: 1px; }
+    .quote_note { font-size: 0.8125rem; color: var(--color-grey); text-align: center; margin-top: 0.75rem; }
 
-    /* =========================================================
-       BANDEAU ARGUMENTS
-       ========================================================= */
-    .section_band { background: var(--color-accent); color: var(--color-dark); }
-    .section_band { overflow: hidden; }
-    .section_band .padding-global { padding-left: 0; padding-right: 0; }
-    .section_band .container-large { max-width: none; }
-    .band_list {
-      display: flex;
-      width: max-content;
-      font-family: var(--font-heading);
-      font-size: 1.5rem; font-weight: 800; text-transform: uppercase;
-      animation: marquee 28s linear infinite;
-    }
-    .band_list:hover { animation-play-state: paused; }
-    .band_track { display: flex; align-items: center; gap: 2rem; padding-right: 2rem; }
-    .band_item { white-space: nowrap; }
-    .band_sep { font-size: 1rem; opacity: 0.6; }
-    @keyframes marquee {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
+    /* ===== Chiffres clés ===== */
+    .section_stats { background: var(--color-accent); color: var(--color-dark); }
+    .stats_list { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .stats_item { padding: 1.75rem 1rem; text-align: center; border-left: 1px solid rgba(8, 23, 15, 0.15); }
+    .stats_item:first-child { border-left: 0; }
+    .stats_number { font-family: var(--font-heading); font-size: 3rem; font-weight: 800; line-height: 1; }
+    .stats_label { font-weight: 600; font-size: 0.9375rem; }
 
-    /* =========================================================
-       SERVICES
-       ========================================================= */
-    .section-header { max-width: 44rem; }
-    .section-header.is-center { margin-left: auto; margin-right: auto; text-align: center; }
-    .services_grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-    }
-    .services_card {
-      background: var(--color-white);
-      border-radius: var(--radius-medium);
-      padding: 2rem;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-    .services_card:hover { transform: translateY(-4px); box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.08); }
-    .services_card.is-featured { background: var(--color-dark); color: var(--color-white); border-color: var(--color-dark); }
-    .services_card.is-featured p { color: #b5c9bc; }
-    .services_card.is-featured .services_icon { border-color: var(--color-accent); color: var(--color-accent); }
-    .services_icon {
-      width: 3rem; height: 3rem;
-      border-radius: 50%;
-      background: transparent;
-      border: 1.5px solid var(--color-accent-dark);
-      color: var(--color-accent-dark);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1.5rem;
-    }
-    .services_card p { color: #4a5d51; }
+    /* ===== Services : liste sobre, sans cartes ===== */
+    .services_component { display: grid; grid-template-columns: 1fr 1.3fr; gap: 5rem; align-items: center; }
+    .services_image { border-radius: 1rem; overflow: hidden; aspect-ratio: 4 / 5; }
+    .services_image img { width: 100%; height: 100%; object-fit: cover; }
+    .services_list { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid rgba(0, 0, 0, 0.1); }
+    .services_item { display: flex; align-items: center; gap: 0.875rem; padding: 1.375rem 0; border-bottom: 1px solid rgba(0, 0, 0, 0.1); font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; text-transform: uppercase; line-height: 1; }
+    .services_item .icon { color: var(--color-accent-dark); transition: transform 0.4s var(--ease); }
+    .services_item:hover .icon { transform: scale(1.25) rotate(-8deg); }
 
-    /* Véhicules acceptés */
-    .vehicules_component {
-      margin-top: 4rem;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 2rem;
-      align-items: center;
-      padding: 2rem 2.5rem;
-      border-radius: var(--radius-medium);
-      border: 2px dashed rgba(0, 0, 0, 0.15);
-    }
-    .vehicules_list { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: flex-end; }
-    .vehicules_item {
-      padding: 0.75rem 1.5rem;
-      border-radius: 6rem;
-      background: var(--color-white);
-      font-family: var(--font-heading);
-      font-size: 1.25rem; font-weight: 700; text-transform: uppercase;
-      border: 1px solid rgba(0, 0, 0, 0.08);
-    }
-
-    /* =========================================================
-       ÉTAPES
-       ========================================================= */
+    /* ===== Étapes ===== */
     .section_process { background: var(--color-dark); color: var(--color-white); }
-    .process_grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-      counter-reset: step;
-    }
-    .process_card {
-      position: relative;
-      padding: 2.5rem 2rem;
-      border-radius: var(--radius-medium);
-      background: var(--color-dark-2);
-      border: 1px solid var(--color-border);
-    }
-    .process_image { aspect-ratio: 4 / 3; border-radius: var(--radius-small); margin: -1rem -0.75rem 1.5rem; }
-    .process_image img { transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
-    .process_card:hover .process_image img { transform: scale(1.05); }
-    .process_number {
-      font-family: var(--font-heading);
-      font-size: 3.5rem; font-weight: 800; line-height: 1;
-      color: transparent;
-      -webkit-text-stroke: 2px var(--color-accent);
-      margin-bottom: 1.5rem;
-    }
-    .process_card p { color: #b5c9bc; }
+    .process_grid { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .process_line { position: absolute; top: 2rem; left: 2rem; right: 2rem; height: 2px; background: var(--color-accent); transform: scaleX(0); transform-origin: left; transition: transform 1.6s var(--ease); z-index: 0; }
+    .process_grid.is-visible .process_line { transform: scaleX(1); }
+    .process_card { position: relative; z-index: 1; }
+    .process_number { width: 4rem; height: 4rem; border-radius: 50%; background: var(--color-dark); border: 2px solid var(--color-accent); display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-size: 1.75rem; font-weight: 800; color: var(--color-accent); margin-bottom: 1.5rem; }
+    .process_image { aspect-ratio: 4 / 3; border-radius: 0.75rem; overflow: hidden; margin-bottom: 1.25rem; }
+    .process_image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease); }
+    .process_card:hover .process_image img { transform: scale(1.06); }
 
-    /* =========================================================
-       ZONES
-       ========================================================= */
+    /* ===== Galerie défilante ===== */
+    .section_galerie { background: var(--color-white); overflow: hidden; }
+    .galerie_marquee { display: flex; width: max-content; animation: marquee 50s linear infinite; }
+    .galerie_marquee:hover { animation-play-state: paused; }
+    .galerie_track { display: flex; gap: 1rem; padding-right: 1rem; }
+    .galerie_item { width: 20rem; aspect-ratio: 4 / 5; border-radius: 0.75rem; overflow: hidden; }
+    .galerie_item img { width: 100%; height: 100%; object-fit: cover; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* ===== Zones ===== */
     .section_zones { position: relative; overflow: hidden; background: var(--color-dark); color: var(--color-white); }
     .zones_bg { position: absolute; inset: 0; }
     .zones_bg img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
-    .zones_bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--color-dark) 15%, rgba(8, 23, 15, 0.5) 60%, rgba(8, 23, 15, 0.8)); }
+    .zones_bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--color-dark) 10%, rgba(8, 23, 15, 0.4)); }
     .section_zones .padding-global { position: relative; z-index: 1; }
-    .section_zones .tag { color: var(--color-accent); }
-    .section_zones .text-size-medium { color: #b5c9bc; }
-    .section_zones .button.is-dark { background: var(--color-accent); color: var(--color-dark); border-color: var(--color-accent); }
-    .section_zones .zones_item { background: rgba(14, 35, 24, 0.75); border-color: var(--color-border); color: var(--color-white); backdrop-filter: blur(6px); }
-    .section_zones .zones_item.is-main { background: var(--color-accent); color: var(--color-dark); border-color: var(--color-accent); }
-    .section_zones .zones_item.is-main .zones_number { color: var(--color-dark); }
-    .section_zones .zones_number { color: var(--color-accent); }
-    .zones_component {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 4rem;
-      align-items: center;
-    }
-    .zones_grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.75rem;
-    }
-    .zones_item {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.125rem 1.25rem;
-      border-radius: var(--radius-small);
-      background: var(--color-white);
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      font-weight: 600;
-    }
-    .zones_item.is-main { background: var(--color-dark); color: var(--color-white); border-color: var(--color-dark); }
-    .zones_number {
-      font-family: var(--font-heading);
-      font-size: 1.75rem; font-weight: 800;
-      color: var(--color-accent-dark);
-    }
-    .zones_item.is-main .zones_number { color: var(--color-accent); }
+    .zones_list { display: flex; flex-wrap: wrap; gap: 0.75rem; max-width: 44rem; }
+    .zones_item { width: 4.5rem; height: 4.5rem; border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-size: 2rem; font-weight: 800; border: 1px solid var(--color-border); background: rgba(14, 35, 24, 0.7); backdrop-filter: blur(6px); transition: background 0.3s, color 0.3s, transform 0.3s var(--ease); }
+    .zones_item:hover, .zones_item.is-main { background: var(--color-accent); color: var(--color-dark); }
+    .zones_item:hover { transform: translateY(-4px); }
 
-    /* =========================================================
-       GALERIE
-       ========================================================= */
-    .section_galerie { background: var(--color-white); }
-    .galerie_grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-    .galerie_item { aspect-ratio: 4 / 3; border-radius: var(--radius-medium); }
-    .galerie_item:first-child { grid-row: span 2; aspect-ratio: auto; }
-
-    /* =========================================================
-       AVIS
-       ========================================================= */
-    .section_avis { background: var(--color-dark); color: var(--color-white); }
-    .avis_header {
-      display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem;
-      flex-wrap: wrap;
-    }
-    .avis_score { display: flex; align-items: center; gap: 1.25rem; }
-    .avis_score-number {
-      font-family: var(--font-heading);
-      font-size: 4.5rem; font-weight: 800; line-height: 1;
-      color: var(--color-accent);
-    }
-    .section_avis { overflow: hidden; }
-    .avis_marquee {
-      display: flex; width: max-content;
-      animation: marquee 45s linear infinite;
-    }
+    /* ===== Avis ===== */
+    .section_avis { background: var(--color-dark-2); color: var(--color-white); overflow: hidden; }
+    .avis_header { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; flex-wrap: wrap; }
+    .avis_score { font-family: var(--font-heading); font-size: 4rem; font-weight: 800; line-height: 1; color: var(--color-accent); }
+    .avis_score small { display: block; font-family: var(--font-body); font-size: 0.9375rem; font-weight: 600; color: var(--color-grey); }
+    .avis_marquee { display: flex; width: max-content; animation: marquee 45s linear infinite; }
     .avis_marquee:hover { animation-play-state: paused; }
     .avis_track { display: flex; gap: 1.25rem; padding-right: 1.25rem; }
-    .avis_card { width: 22rem; margin: 0; }
-    .avis_source { display: block; font-weight: 500; font-size: 0.8125rem; color: var(--color-grey); margin-top: 0.25rem; }
-    .avis_card {
-      padding: 2rem;
-      border-radius: var(--radius-medium);
-      background: var(--color-dark-2);
-      border: 1px solid var(--color-border);
-      display: flex; flex-direction: column; gap: 1rem;
-    }
-    .avis_text { color: #b5c9bc; font-style: italic; flex: 1; }
-    .avis_author { font-weight: 700; }
+    .avis_card { width: 21rem; padding: 1.75rem; border-radius: 0.75rem; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--color-border); margin: 0; }
+    .avis_card .stars { color: var(--color-accent); letter-spacing: 0.1em; margin-bottom: 0.75rem; }
+    .avis_text { font-size: 1.0625rem; color: #d3e0d8; margin-bottom: 1rem; }
+    .avis_author { font-weight: 700; font-size: 0.9375rem; }
 
-    /* =========================================================
-       FAQ
-       ========================================================= */
-    .faq_list { display: flex; flex-direction: column; gap: 0.75rem; }
-    .faq_item {
-      background: var(--color-white);
-      border-radius: var(--radius-medium);
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      overflow: hidden;
-    }
-    .faq_question {
-      list-style: none;
-      cursor: pointer;
-      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
-      padding: 1.5rem 1.75rem;
-      font-weight: 700; font-size: 1.125rem;
-    }
+    /* ===== FAQ ===== */
+    .faq_list { max-width: 48rem; }
+    .faq_item { border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
+    .faq_question { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.5rem 0; font-weight: 700; font-size: 1.25rem; }
     .faq_question::-webkit-details-marker { display: none; }
-    .faq_icon {
-      width: 2rem; height: 2rem; border-radius: 50%;
-      background: var(--color-light);
-      display: flex; align-items: center; justify-content: center;
-      transition: transform 0.25s, background 0.25s;
-    }
-    .faq_item[open] .faq_icon { transform: rotate(45deg); background: var(--color-accent); }
-    .faq_answer { padding: 0 1.75rem 1.5rem; color: #4a5d51; }
+    .faq_icon { font-size: 1.75rem; color: var(--color-accent-dark); transition: transform 0.3s var(--ease); }
+    .faq_item[open] .faq_icon { transform: rotate(45deg); }
+    .faq_answer { padding-bottom: 1.5rem; color: var(--color-muted); font-size: 1.0625rem; }
 
-    /* =========================================================
-       CTA FINAL
-       ========================================================= */
-    .section_cta { background: var(--color-accent); color: var(--color-dark); }
-    .cta_component { text-align: center; }
-    .cta_phone {
-      display: block;
-      font-family: var(--font-heading);
-      font-size: 6rem; font-weight: 800; line-height: 1;
-      letter-spacing: -0.02em;
-      margin: 1.5rem 0 2rem;
-      transition: opacity 0.2s;
-    }
-    .cta_phone:hover { opacity: 0.75; }
+    /* ===== CTA final ===== */
+    .section_cta { background: var(--color-accent); color: var(--color-dark); text-align: center; }
+    .cta_phone { display: inline-block; font-family: var(--font-heading); font-size: clamp(3rem, 9vw, 7rem); font-weight: 800; line-height: 1; margin: 1rem 0 2rem;
+      background: linear-gradient(110deg, var(--color-dark) 40%, #2d6b47 50%, var(--color-dark) 60%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 4s linear infinite; }
+    @keyframes shine { from { background-position: 100% 0; } to { background-position: -150% 0; } }
+    .section_cta .button { background: var(--color-dark); color: var(--color-white); }
 
-    /* =========================================================
-       FOOTER
-       ========================================================= */
-    .footer_component { background: var(--color-dark); color: var(--color-grey); font-size: 0.9375rem; }
-    .footer_top {
-      display: flex; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
-      padding-bottom: 2.5rem;
-      border-bottom: 1px solid var(--color-border);
-    }
-    .footer_contact { display: flex; flex-direction: column; gap: 0.5rem; }
-    .footer_contact a:hover { color: var(--color-accent); }
-    .footer_vhu-logo { width: 9rem; margin-top: 1.25rem; background: var(--color-white); border-radius: var(--radius-small); padding: 0.5rem; }
-    .footer_legal { padding-top: 2rem; font-size: 0.8125rem; line-height: 1.7; }
+    /* ===== Footer ===== */
+    .footer_component { background: var(--color-dark); color: var(--color-grey); font-size: 0.875rem; }
+    .footer_top { display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap; padding: 3rem 0 2rem; border-bottom: 1px solid var(--color-border); }
+    .footer_logo { height: 3rem; width: auto; }
+    .footer_vhu { height: 3.5rem; background: var(--color-white); border-radius: 0.375rem; padding: 0.375rem; }
+    .footer_legal { padding: 1.5rem 0 2.5rem; line-height: 1.7; }
 
-    /* =========================================================
-       BOUTONS FLOTTANTS
-       ========================================================= */
-    .float_whatsapp {
-      position: fixed; right: 1.5rem; bottom: 1.5rem; z-index: 60;
-      width: 3.75rem; height: 3.75rem; border-radius: 50%;
-      background: #25d366; color: var(--color-white);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.3);
-      transition: transform 0.2s;
-    }
-    .float_whatsapp:hover { transform: scale(1.08); }
+    /* ===== Bouton d'appel flottant (desktop, après le hero) ===== */
+    .float-call { position: fixed; right: 1.5rem; bottom: 1.5rem; z-index: 60; transform: translateY(150%); transition: transform 0.4s var(--ease); box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.3); }
+    .float-call.is-visible { transform: none; }
     .mobile-bar_component { display: none; }
 
-    /* =========================================================
-       ANIMATIONS
-       ========================================================= */
+    /* Halo pulsé sur les boutons d'appel */
+    .is-pulse:not(.float-call) { position: relative; }
+    .is-pulse::after { content: ""; position: absolute; inset: 0; border-radius: inherit; animation: pulse 2s infinite; pointer-events: none; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(61, 220, 120, 0.6); } 80%, 100% { box-shadow: 0 0 0 0.9rem rgba(61, 220, 120, 0); } }
 
-    /* Entrée du hero : chaque bloc monte en cascade */
-    .hero_content > * {
-      opacity: 0;
-      animation: fadeUp 0.8s cubic-bezier(.2,.7,.2,1) forwards;
-    }
-    .hero_content > *:nth-child(1) { animation-delay: 0.1s; }
-    .hero_content > *:nth-child(2) { animation-delay: 0.25s; }
-    .hero_content > *:nth-child(3) { animation-delay: 0.4s; }
-    .hero_content > *:nth-child(4) { animation-delay: 0.55s; }
-    .hero_content > *:nth-child(5) { animation-delay: 0.7s; }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(2rem); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Image du hero : révélation par le bas */
-    .hero_image-wrapper { animation: clipReveal 1.2s 0.3s cubic-bezier(.65,0,.35,1) both; }
-    @keyframes clipReveal {
-      from { clip-path: inset(100% 0 0 0 round 1rem); }
-      to { clip-path: inset(0 0 0 0 round 1rem); }
-    }
-
-    /* Cartes flottantes du hero */
-    .hero_urgence-card { opacity: 0; animation: popIn 0.6s 1.1s cubic-bezier(.34,1.56,.64,1) forwards, float 5s 1.7s ease-in-out infinite; }
-    .hero_rating-card { opacity: 0; animation: popIn 0.6s 1.3s cubic-bezier(.34,1.56,.64,1) forwards, float 6s 1.9s ease-in-out infinite reverse; }
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.7); }
-      to { opacity: 1; transform: scale(1); }
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-0.75rem); }
-    }
-
-    /* Bouton principal : halo qui pulse pour attirer l'appel */
-    .button.is-pulse { position: relative; }
-    .button.is-pulse::before {
-      content: "";
-      position: absolute; inset: -2px;
-      border-radius: inherit;
-      box-shadow: 0 0 0 0 rgba(61, 220, 120, 0.6);
-      animation: pulse 2s infinite;
-      pointer-events: none;
-    }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(61, 220, 120, 0.6); }
-      80%, 100% { box-shadow: 0 0 0 1rem rgba(61, 220, 120, 0); }
-    }
-
-    /* Apparition au scroll (classe ajoutée en JS) */
-    .reveal {
-      opacity: 0;
-      transform: translateY(2.5rem);
-      transition: opacity 0.8s cubic-bezier(.2,.7,.2,1), transform 0.8s cubic-bezier(.2,.7,.2,1);
-      transition-delay: var(--delay, 0s);
-    }
+    /* Apparition au scroll */
+    .reveal { opacity: 0; transform: translateY(2.5rem); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); transition-delay: var(--delay, 0s); }
     .reveal.is-visible { opacity: 1; transform: none; }
 
-    /* Survols */
-    .services_icon { transition: transform 0.4s cubic-bezier(.34,1.56,.64,1); }
-    .services_card:hover .services_icon { transform: rotate(-8deg) scale(1.12); }
-    .process_number { transition: color 0.4s; }
-    .process_card { transition: transform 0.3s, border-color 0.3s; }
-    .process_card:hover { transform: translateY(-6px); border-color: var(--color-accent); }
-    .process_card:hover .process_number { color: var(--color-accent); }
-    .zones_item { transition: transform 0.25s, box-shadow 0.25s; }
-    .zones_item:hover { transform: translateX(6px); box-shadow: -4px 0 0 var(--color-accent); }
-    .galerie_item img { transition: transform 0.6s cubic-bezier(.2,.7,.2,1); }
-    .galerie_item:hover img { transform: scale(1.06); }
-    .avis_card { transition: transform 0.3s, border-color 0.3s; }
-    .avis_card:hover { transform: translateY(-6px); border-color: var(--color-accent); }
-
-    /* Numéro géant du CTA : reflet qui balaie le texte */
-    .cta_phone {
-      background: linear-gradient(110deg, var(--color-dark) 40%, #2d6b47 50%, var(--color-dark) 60%);
-      background-size: 250% 100%;
-      -webkit-background-clip: text; background-clip: text;
-      color: transparent;
-      animation: shine 4s linear infinite;
+    /* ===== Responsive ===== */
+    @media (max-width: 991px) {
+      .padding-section-large { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+      .hero_component { grid-template-columns: 1fr; gap: 2.5rem; padding-top: 7rem; }
+      .services_component { grid-template-columns: 1fr; gap: 3rem; }
+      .services_image { aspect-ratio: 16 / 10; }
+      .process_grid { grid-template-columns: 1fr; gap: 3rem; }
+      .process_line { display: none; }
+      .stats_list { grid-template-columns: repeat(2, 1fr); }
+      .stats_item:nth-child(3) { border-left: 0; }
+      .stats_item:nth-child(n+3) { border-top: 1px solid rgba(8, 23, 15, 0.15); }
     }
-    @keyframes shine {
-      from { background-position: 100% 0; }
-      to { background-position: -150% 0; }
+    @media (max-width: 767px) {
+      body { padding-bottom: 4.5rem; }
+      .navbar_phone span { display: none; }
+      .hero_subtitle { font-size: 1.0625rem; }
+      .heading-style-h1 { font-size: clamp(2.25rem, 11vw, 3rem); }
+      .hero_component { padding-bottom: 2rem; }
+      .hero_buttons .button { flex: 1; }
+      .services_list { grid-template-columns: 1fr; }
+      .services_item { font-size: 1.375rem; }
+      .stats_number { font-size: 2.5rem; }
+      .galerie_item { width: 15rem; }
+      .avis_card { width: 17rem; }
+      .zones_item { width: 4rem; height: 4rem; font-size: 1.75rem; }
+      .float-call { display: none; }
+      .mobile-bar_component { display: grid; grid-template-columns: 1.4fr 1fr; gap: 0.5rem; position: fixed; inset: auto 0 0; z-index: 60; padding: 0.625rem; background: var(--color-dark); border-top: 1px solid var(--color-border); }
+      .mobile-bar_component .button { padding: 0.875rem; font-size: 1rem; }
     }
-
-    /* Accessibilité : on coupe tout si l'utilisateur réduit les animations */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
-      .hero_content > *, .hero_urgence-card, .hero_rating-card, .reveal { opacity: 1 !important; transform: none !important; }
-      .hero_highlight { background-size: 100% 0.1em; }
-    }
-
-    /* =========================================================
-       RESPONSIVE – TABLETTE
-       ========================================================= */
-    @media (max-width: 991px) {
-      .padding-section-large { padding-top: 5rem; padding-bottom: 5rem; }
-      .heading-style-h1 { font-size: 3.5rem; }
-      .heading-style-h2 { font-size: 2.75rem; }
-      .hero_component, .zones_component { grid-template-columns: 1fr; gap: 3rem; }
-      .hero_visual { max-width: 30rem; }
-      .hero_image-wrapper { aspect-ratio: 4 / 3; }
-      .hero_rating-card { left: 1rem; bottom: 1rem; }
-      .hero_urgence-card { right: 1rem; top: 1rem; }
-      .services_grid { grid-template-columns: repeat(2, 1fr); }
-      .process_grid { grid-template-columns: 1fr; }
-      .vehicules_component { grid-template-columns: 1fr; }
-      .vehicules_list { justify-content: flex-start; }
-      .cta_phone { font-size: 4.5rem; }
-      .navbar_status { display: none; }
-    }
-
-    /* =========================================================
-       RESPONSIVE – MOBILE
-       ========================================================= */
-    @media (max-width: 767px) {
-      body { padding-bottom: 4.5rem; } /* place pour la barre mobile */
-      .padding-section-large { padding-top: 4rem; padding-bottom: 4rem; }
-      .heading-style-h1 { font-size: 2.75rem; }
-      .heading-style-h2 { font-size: 2.25rem; }
-      .text-size-large { font-size: 1.125rem; }
-      .navbar_logo-img { height: 2.25rem; }
-      .navbar_right .button { display: none; }
-      .button-group .button { width: 100%; }
-      .band_list { font-size: 1.125rem; justify-content: center; }
-      .services_grid, .zones_grid { grid-template-columns: 1fr; }
-      .galerie_grid { grid-template-columns: repeat(2, 1fr); }
-      .galerie_item:first-child { grid-column: span 2; grid-row: auto; aspect-ratio: 4 / 3; }
-      .galerie_item:nth-child(8) { display: none; }
-      .vehicules_component { padding: 1.5rem; }
-      .cta_phone { font-size: 3rem; }
-      .float_whatsapp { display: none; }
-
-      /* Barre d'appel collée en bas de l'écran */
-      .mobile-bar_component {
-        display: grid; grid-template-columns: 1.4fr 1fr; gap: 0.5rem;
-        position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
-        padding: 0.625rem;
-        background: var(--color-dark);
-        border-top: 1px solid var(--color-border);
-      }
-      .mobile-bar_component .button { padding: 0.875rem 1rem; }
-      .mobile-bar_component .is-whatsapp { background: #25d366; border-color: #25d366; color: var(--color-white); }
+      .reveal, .fade-in, .split-word > span { opacity: 1 !important; transform: none !important; }
     }
   </style>
 </head>
 
 <body>
-<div class="page-wrapper">
+  <!-- Icônes réutilisées (sprite SVG) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></symbol>
+  </svg>
 
-  <!-- ===================== NAVBAR ===================== -->
+  <!-- ===== NAVBAR ===== -->
   <header class="navbar_component">
-    <div class="padding-global">
-      <div class="container-large">
-        <div class="navbar_container">
-          <a href="#" class="navbar_logo" aria-label="L'Epaviste IDF – accueil"><img src="images/logo.svg" alt="L'Epaviste IDF" class="navbar_logo-img"></a>
-          <div class="navbar_right">
-            <div class="navbar_status"><span class="tag_dot"></span>Disponible 24h/24</div>
-            <a href="tel:+33668353538" class="button is-small">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              06 68 35 25 38
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="padding-global"><div class="container-large"><div class="navbar_container">
+      <a href="#"><img src="images/logo.svg" alt="L'Epaviste IDF" class="navbar_logo"></a>
+      <a href="tel:+33668353538" class="navbar_phone"><svg class="icon"><use href="#i-phone"/></svg><span>06 68 35 25 38</span></a>
+    </div></div></div>
   </header>
 
   <main class="main-wrapper">
 
-    <!-- ===================== HERO ===================== -->
+    <!-- ===== HERO ===== -->
     <section class="section_hero">
-      <div class="hero_blob is-1"></div>
-      <div class="padding-global">
-        <div class="container-large">
-          <div class="padding-section-large">
-            <div class="hero_component">
+      <div class="hero_bg"><img src="images/hero.jpg" alt="Dépanneuse L'Epaviste IDF en intervention" fetchpriority="high"></div>
+      <div class="padding-global"><div class="container-large">
+        <div class="hero_component">
+          <div>
+            <div class="hero_rating fade-in" style="animation-delay:.1s"><span class="stars">★★★★★</span>5,0 · 36 avis Google</div>
+            <h1 class="heading-style-h1" data-split>Votre épave enlevée <span class="text-color-accent">gratuitement</span></h1>
+            <p class="hero_subtitle fade-in" style="animation-delay:.9s">Toute l'Île-de-France · 24h/24 · Agréé VHU</p>
+            <div class="hero_buttons fade-in" style="animation-delay:1.1s">
+              <a href="tel:+33668353538" class="button is-pulse"><svg class="icon"><use href="#i-phone"/></svg>06 68 35 25 38</a>
+              <a href="https://wa.me/33668353538" target="_blank" rel="noopener" class="button is-ghost"><svg class="icon"><use href="#i-chat"/></svg>WhatsApp</a>
+            </div>
+          </div>
 
-              <div class="hero_content">
-                <div class="margin-bottom margin-small">
-                  <div class="tag is-dark"><span class="tag_dot"></span>Épaviste agréé VHU · Île-de-France</div>
-                </div>
-                <div class="margin-bottom margin-small">
-                  <h1 class="heading-style-h1">Épaviste en Île-de-France <span class="text-color-accent hero_highlight">enlèvement gratuit</span> 24h/24</h1>
-                </div>
-                <div class="margin-bottom margin-medium">
-                  <p class="text-size-large hero_subtitle">Voiture en panne, accidentée ou sans contrôle technique ? On vient la chercher gratuitement, où que vous soyez en Île-de-France.</p>
-                </div>
-                <div class="button-group">
-                  <a href="tel:+33668353538" class="button is-large is-pulse">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                    Appeler maintenant
-                  </a>
-                  <!-- Vérifier le numéro WhatsApp du client -->
-                  <a href="https://wa.me/33668353538?text=Bonjour%2C%20j%27ai%20un%20v%C3%A9hicule%20%C3%A0%20faire%20enlever" target="_blank" rel="noopener" class="button is-secondary is-large">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-                    Envoyer une photo
-                  </a>
-                </div>
-                <div class="hero_badges">
-                  <div class="hero_badge">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-                    Agrément VHU n° PR9100012D
-                  </div>
-                  <div class="hero_badge">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                    Urgence : 1 à 2h
-                  </div>
-                </div>
-              </div>
+          <!-- Formulaire express : ouvre WhatsApp avec un message pré-rempli (aucun back-end) -->
+          <form class="quote_component fade-in" style="animation-delay:1.3s" id="quote">
+            <div class="quote_title">Réponse en 2 min</div>
+            <label class="quote_field"><span class="quote_label">Département</span>
+              <select class="quote_select" name="dep">
+                <option>75 – Paris</option><option>92 – Hauts-de-Seine</option><option>93 – Seine-Saint-Denis</option><option>94 – Val-de-Marne</option>
+                <option>77 – Seine-et-Marne</option><option>78 – Yvelines</option><option>91 – Essonne</option><option>95 – Val-d'Oise</option>
+              </select></label>
+            <label class="quote_field"><span class="quote_label">Le véhicule</span>
+              <select class="quote_select" name="etat">
+                <option>Ne roule plus</option><option>Accidenté</option><option>Sans contrôle technique</option><option>Roule encore</option>
+              </select></label>
+            <label class="quote_field"><span class="quote_label">Je souhaite</span>
+              <select class="quote_select" name="besoin">
+                <option>Enlèvement gratuit</option><option>Une offre de rachat</option>
+              </select></label>
+            <button type="submit" class="button is-whatsapp is-full"><svg class="icon"><use href="#i-chat"/></svg>Envoyer sur WhatsApp</button>
+            <p class="quote_note">Joignez une photo, on vous répond vite.</p>
+          </form>
+        </div>
+      </div></div>
+    </section>
 
-              <div class="hero_visual">
-                <div class="image-wrapper hero_image-wrapper">
-                  <img src="images/hero.jpg" alt="Dépanneuse L'Epaviste IDF en intervention en Île-de-France">
-                </div>
-                <div class="hero_urgence-card">
-                  <span>24h/24</span>7 jours sur 7
-                </div>
-                <div class="hero_rating-card">
-                  <div class="hero_rating-score">5,0</div>
-                  <div class="stars">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                  </div>
-                  <div class="text-size-small text-weight-semibold">36 avis Google</div>
-                </div>
-              </div>
+    <!-- ===== CHIFFRES ===== -->
+    <section class="section_stats">
+      <div class="padding-global"><div class="container-large">
+        <div class="stats_list">
+          <div class="stats_item"><div class="stats_number"><span data-count="0">0</span> €</div><div class="stats_label">Enlèvement</div></div>
+          <div class="stats_item"><div class="stats_number"><span data-count="24">0</span>h/24</div><div class="stats_label">7 jours sur 7</div></div>
+          <div class="stats_item"><div class="stats_number"><span data-count="2">0</span>h</div><div class="stats_label">En urgence</div></div>
+          <div class="stats_item"><div class="stats_number"><span data-count="8">0</span></div><div class="stats_label">Départements</div></div>
+        </div>
+      </div></div>
+    </section>
 
+    <!-- ===== SERVICES ===== -->
+    <section class="section_services">
+      <div class="padding-global"><div class="container-large"><div class="padding-section-large">
+        <div class="services_component">
+          <div class="services_image reveal"><img src="images/galerie-3.jpg" alt="Véhicule accidenté chargé sur plateau" loading="lazy"></div>
+          <div>
+            <h2 class="heading-style-h2 margin-bottom margin-medium reveal">On prend tout,<br>dans l'état</h2>
+            <div class="services_list">
+              <div class="services_item reveal"><svg class="icon"><use href="#i-check"/></svg>Enlèvement gratuit</div>
+              <div class="services_item reveal"><svg class="icon"><use href="#i-check"/></svg>Rachat cash</div>
+              <div class="services_item reveal"><svg class="icon"><use href="#i-check"/></svg>Sans contrôle technique</div>
+              <div class="services_item reveal"><svg class="icon"><use href="#i-check"/></svg>Accidenté</div>
+              <div class="services_item reveal"><svg class="icon"><use href="#i-check"/></svg>Carte grise perdue</div>
+              <div class="services_item reveal"><svg class="icon"><use href="#i-check"/></svg>Véhicule gagé</div>
+              <div class="services_item reveal"><svg class="icon"><use href="#i-check"/></svg>Voiture & utilitaire</div>
+              <div class="services_item reveal"><svg class="icon"><use href="#i-check"/></svg>Moto & scooter</div>
             </div>
           </div>
         </div>
-      </div>
+      </div></div></div>
     </section>
 
-    <!-- ===================== BANDEAU ===================== -->
-    <section class="section_band">
-      <div class="padding-global">
-        <div class="container-large">
-          <div class="padding-section-small">
-            <!-- Défilement infini : la liste est dupliquée pour une boucle sans coupure -->
-            <div class="band_list">
-              <div class="band_track">
-                <div class="band_item">Enlèvement 100% gratuit</div><span class="band_sep">✦</span>
-                <div class="band_item">Rachat de véhicules</div><span class="band_sep">✦</span>
-                <div class="band_item">24h/24 – 7j/7</div><span class="band_sep">✦</span>
-                <div class="band_item">Toute l'Île-de-France</div><span class="band_sep">✦</span>
-                <div class="band_item">Recyclage responsable</div><span class="band_sep">✦</span>
-              </div>
-              <div class="band_track" aria-hidden="true">
-                <div class="band_item">Enlèvement 100% gratuit</div><span class="band_sep">✦</span>
-                <div class="band_item">Rachat de véhicules</div><span class="band_sep">✦</span>
-                <div class="band_item">24h/24 – 7j/7</div><span class="band_sep">✦</span>
-                <div class="band_item">Toute l'Île-de-France</div><span class="band_sep">✦</span>
-                <div class="band_item">Recyclage responsable</div><span class="band_sep">✦</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== SERVICES ===================== -->
-    <section class="section_services" id="services">
-      <div class="padding-global">
-        <div class="container-large">
-          <div class="padding-section-large">
-
-            <div class="section-header margin-bottom margin-large">
-              <div class="margin-bottom margin-xsmall"><div class="tag">Nos services</div></div>
-              <h2 class="heading-style-h2">Enlèvement gratuit ou rachat de votre véhicule</h2>
-            </div>
-
-            <div class="services_grid">
-              <div class="services_card is-featured">
-                <div class="services_icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3"/><path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5"/><path d="M14 17h1"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
-                </div>
-                <div class="margin-bottom margin-xsmall"><h3 class="heading-style-h3">Enlèvement d'épave gratuit</h3></div>
-                <p>On se déplace et on remorque votre véhicule, sans aucun frais.</p>
-              </div>
-              <div class="services_card is-featured">
-                <div class="services_icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
-                </div>
-                <div class="margin-bottom margin-xsmall"><h3 class="heading-style-h3">Rachat dans l'état</h3></div>
-                <p>Roulant ou non, on vous fait une offre pour votre véhicule.</p>
-              </div>
-              <div class="services_card">
-                <div class="services_icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9.5 12.5 5 5"/><path d="m14.5 12.5-5 5"/></svg>
-                </div>
-                <div class="margin-bottom margin-xsmall"><h3 class="heading-style-h3">Sans contrôle technique</h3></div>
-                <p>CT refusé ou expiré ? Aucun problème, on s'en occupe.</p>
-              </div>
-              <div class="services_card">
-                <div class="services_icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
-                </div>
-                <div class="margin-bottom margin-xsmall"><h3 class="heading-style-h3">Véhicule accidenté</h3></div>
-                <p>Même lourdement endommagé, on l'enlève avec notre plateau.</p>
-              </div>
-              <div class="services_card">
-                <div class="services_icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
-                </div>
-                <div class="margin-bottom margin-xsmall"><h3 class="heading-style-h3">Perte de carte grise</h3></div>
-                <p>Carte grise perdue ? On étudie votre situation ensemble.</p>
-              </div>
-              <div class="services_card">
-                <div class="services_icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                </div>
-                <div class="margin-bottom margin-xsmall"><h3 class="heading-style-h3">Véhicule gagé</h3></div>
-                <p>Contactez-nous, on trouve une solution adaptée.</p>
-              </div>
-            </div>
-
-            <!-- Véhicules acceptés -->
-            <div class="vehicules_component">
-              <h3 class="heading-style-h3">Tous types de véhicules</h3>
-              <div class="vehicules_list">
-                <div class="vehicules_item">Voitures</div>
-                <div class="vehicules_item">Utilitaires</div>
-                <div class="vehicules_item">Motos</div>
-                <div class="vehicules_item">Scooters</div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== ÉTAPES ===================== -->
+    <!-- ===== ÉTAPES ===== -->
     <section class="section_process">
-      <div class="padding-global">
-        <div class="container-large">
-          <div class="padding-section-large">
-
-            <div class="section-header margin-bottom margin-large">
-              <div class="margin-bottom margin-xsmall"><div class="tag is-dark">Comment ça marche</div></div>
-              <h2 class="heading-style-h2">Votre épave enlevée en 3 étapes</h2>
-            </div>
-
-            <div class="process_grid">
-              <div class="process_card">
-                <div class="image-wrapper process_image"><img src="images/etape-1.jpg" alt="Photo d'un véhicule prise au smartphone" loading="lazy"></div>
-                <div class="process_number">01</div>
-                <div class="margin-bottom margin-xsmall"><h3 class="heading-style-h3">Vous nous contactez</h3></div>
-                <p>Par téléphone ou en envoyant une photo du véhicule sur WhatsApp.</p>
-              </div>
-              <div class="process_card">
-                <div class="image-wrapper process_image"><img src="images/etape-2.jpg" alt="Dépanneuse L'Epaviste IDF avec un véhicule chargé" loading="lazy"></div>
-                <div class="process_number">02</div>
-                <div class="margin-bottom margin-xsmall"><h3 class="heading-style-h3">On intervient</h3></div>
-                <p>Sous 24h en moyenne, et en 1 à 2h pour les urgences.</p>
-              </div>
-              <div class="process_card">
-                <div class="image-wrapper process_image"><img src="images/etape-3.jpg" alt="Remise des clés et des papiers du véhicule" loading="lazy"></div>
-                <div class="process_number">03</div>
-                <div class="margin-bottom margin-xsmall"><h3 class="heading-style-h3">C'est réglé</h3></div>
-                <p>Enlèvement sur place, on prend en charge les démarches.</p>
-              </div>
-            </div>
-
-          </div>
+      <div class="padding-global"><div class="container-large"><div class="padding-section-large">
+        <h2 class="heading-style-h2 margin-bottom margin-medium reveal">Simple comme<br><span class="text-color-accent">1, 2, 3</span></h2>
+        <div class="process_grid" data-line>
+          <div class="process_line"></div>
+          <div class="process_card reveal"><div class="process_number">1</div><div class="process_image"><img src="images/etape-1.jpg" alt="Photo du véhicule au smartphone" loading="lazy"></div><h3 class="heading-style-h3">Envoyez une photo</h3></div>
+          <div class="process_card reveal"><div class="process_number">2</div><div class="process_image"><img src="images/etape-2.jpg" alt="Dépanneuse avec véhicule chargé" loading="lazy"></div><h3 class="heading-style-h3">On vient le chercher</h3></div>
+          <div class="process_card reveal"><div class="process_number">3</div><div class="process_image"><img src="images/etape-3.jpg" alt="Remise des clés et des papiers" loading="lazy"></div><h3 class="heading-style-h3">On gère les papiers</h3></div>
         </div>
-      </div>
+      </div></div></div>
     </section>
 
-    <!-- ===================== ZONES ===================== -->
-    <section class="section_zones" id="zones">
-      <div class="zones_bg"><img src="images/zones-bg.jpg" alt="" loading="lazy"></div>
-      <div class="padding-global">
-        <div class="container-large">
-          <div class="padding-section-large">
-            <div class="zones_component">
-
-              <div class="zones_content">
-                <div class="margin-bottom margin-xsmall"><div class="tag">Zones d'intervention</div></div>
-                <div class="margin-bottom margin-small"><h2 class="heading-style-h2">Épaviste dans toute l'Île-de-France</h2></div>
-                <div class="margin-bottom margin-medium">
-                  <p class="text-size-medium">Tous les départements d'Île-de-France, sans exception, 7j/7 et 24h/24. Paris, Hauts-de-Seine, Seine-Saint-Denis, Val-de-Marne : on est sur place rapidement.</p>
-                </div>
-                <a href="tel:+33668353538" class="button is-dark">Vérifier la disponibilité</a>
-              </div>
-
-              <div class="zones_grid">
-                <div class="zones_item is-main">Paris <span class="zones_number">75</span></div>
-                <div class="zones_item is-main">Hauts-de-Seine <span class="zones_number">92</span></div>
-                <div class="zones_item is-main">Seine-Saint-Denis <span class="zones_number">93</span></div>
-                <div class="zones_item is-main">Val-de-Marne <span class="zones_number">94</span></div>
-                <div class="zones_item">Seine-et-Marne <span class="zones_number">77</span></div>
-                <div class="zones_item">Yvelines <span class="zones_number">78</span></div>
-                <div class="zones_item">Essonne <span class="zones_number">91</span></div>
-                <div class="zones_item">Val-d'Oise <span class="zones_number">95</span></div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== GALERIE ===================== -->
+    <!-- ===== GALERIE ===== -->
     <section class="section_galerie">
-      <div class="padding-global">
-        <div class="container-large">
-          <div class="padding-section-large">
-
-            <div class="section-header margin-bottom margin-large">
-              <div class="margin-bottom margin-xsmall"><div class="tag">Réalisations</div></div>
-              <h2 class="heading-style-h2">Nos derniers enlèvements</h2>
-            </div>
-
-            <div class="galerie_grid">
-              <div class="image-wrapper galerie_item"><img src="images/galerie-1.jpg" alt="Enlèvement d'épave en parking souterrain" loading="lazy"></div>
-              <div class="image-wrapper galerie_item"><img src="images/galerie-2.jpg" alt="Fiat 500 enlevée sur plateau" loading="lazy"></div>
-              <div class="image-wrapper galerie_item"><img src="images/galerie-3.jpg" alt="Clio accidentée chargée sur plateau" loading="lazy"></div>
-              <div class="image-wrapper galerie_item"><img src="images/galerie-4.jpg" alt="Utilitaire hors d'usage sur plateau" loading="lazy"></div>
-              <div class="image-wrapper galerie_item"><img src="images/galerie-5.jpg" alt="Golf enlevée à domicile" loading="lazy"></div>
-              <div class="image-wrapper galerie_item"><img src="images/galerie-6.jpg" alt="Épave enlevée en Île-de-France" loading="lazy"></div>
-              <div class="image-wrapper galerie_item"><img src="images/galerie-7.jpg" alt="Peugeot 307 enlevée pour destruction" loading="lazy"></div>
-              <div class="image-wrapper galerie_item"><img src="images/galerie-8.jpg" alt="Audi hors d'usage chargée sur plateau" loading="lazy"></div>
-            </div>
-
-          </div>
-        </div>
+      <div class="padding-section-large">
+        <div class="padding-global"><div class="container-large">
+          <h2 class="heading-style-h2 margin-bottom margin-medium reveal">Nos derniers enlèvements</h2>
+        </div></div>
+        <div class="galerie_marquee" id="galerie"></div>
       </div>
     </section>
 
-    <!-- ===================== AVIS ===================== -->
+    <!-- ===== ZONES ===== -->
+    <section class="section_zones">
+      <div class="zones_bg"><img src="images/zones-bg.jpg" alt="" loading="lazy"></div>
+      <div class="padding-global"><div class="container-large"><div class="padding-section-large">
+        <h2 class="heading-style-h2 margin-bottom margin-medium reveal">Partout en<br><span class="text-color-accent">Île-de-France</span></h2>
+        <div class="zones_list">
+          <div class="zones_item is-main reveal">75</div><div class="zones_item is-main reveal">92</div><div class="zones_item is-main reveal">93</div><div class="zones_item is-main reveal">94</div>
+          <div class="zones_item reveal">77</div><div class="zones_item reveal">78</div><div class="zones_item reveal">91</div><div class="zones_item reveal">95</div>
+        </div>
+      </div></div></div>
+    </section>
+
+    <!-- ===== AVIS (extraits réels de la fiche Google) ===== -->
     <section class="section_avis">
-      <div class="padding-global">
-        <div class="container-large">
-          <div class="padding-section-large">
-
-            <div class="avis_header margin-bottom margin-large">
-              <div>
-                <div class="margin-bottom margin-xsmall"><div class="tag is-dark">Avis clients</div></div>
-                <h2 class="heading-style-h2">Ils nous ont fait confiance</h2>
-              </div>
-              <div class="avis_score">
-                <div class="avis_score-number">5,0</div>
-                <div>
-                  <div class="stars">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                  </div>
-                  <a href="https://maps.app.goo.gl/32U6B9ZrkzFY97xM7" target="_blank" rel="noopener" class="text-color-grey text-weight-semibold">36 avis Google →</a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Extraits d'avis réels de la fiche Google (défilement infini, liste dupliquée) -->
-            <div class="avis_marquee">
-              <div class="avis_track"><figure class="avis_card"><div class="stars">★★★★★</div><blockquote class="avis_text">« Très professionnel, efficace et en plus très gentil. L’intervention a été rapide. »</blockquote><figcaption class="avis_author">Esra G.<span class="avis_source">Avis Google</span></figcaption></figure><figure class="avis_card"><div class="stars">★★★★★</div><blockquote class="avis_text">« Ils sont venus chercher mon véhicule le jour même. Pour les papiers, ils s’occupent de tout. »</blockquote><figcaption class="avis_author">Samia B.<span class="avis_source">Avis Google</span></figcaption></figure><figure class="avis_card"><div class="stars">★★★★★</div><blockquote class="avis_text">« Si vous souhaitez enlever vos véhicules, allez-y les yeux fermés. »</blockquote><figcaption class="avis_author">E.D.L.C<span class="avis_source">Avis Google</span></figcaption></figure><figure class="avis_card"><div class="stars">★★★★★</div><blockquote class="avis_text">« Très professionnel, à l’écoute et très souriant ! D’une gentillesse rare. »</blockquote><figcaption class="avis_author">Jemima N.<span class="avis_source">Avis Google</span></figcaption></figure><figure class="avis_card"><div class="stars">★★★★★</div><blockquote class="avis_text">« Très efficace, prise de rendez-vous en 24h. »</blockquote><figcaption class="avis_author">Zakia B.<span class="avis_source">Avis Google</span></figcaption></figure></div>
-              <div class="avis_track" aria-hidden="true"><figure class="avis_card"><div class="stars">★★★★★</div><blockquote class="avis_text">« Très professionnel, efficace et en plus très gentil. L’intervention a été rapide. »</blockquote><figcaption class="avis_author">Esra G.<span class="avis_source">Avis Google</span></figcaption></figure><figure class="avis_card"><div class="stars">★★★★★</div><blockquote class="avis_text">« Ils sont venus chercher mon véhicule le jour même. Pour les papiers, ils s’occupent de tout. »</blockquote><figcaption class="avis_author">Samia B.<span class="avis_source">Avis Google</span></figcaption></figure><figure class="avis_card"><div class="stars">★★★★★</div><blockquote class="avis_text">« Si vous souhaitez enlever vos véhicules, allez-y les yeux fermés. »</blockquote><figcaption class="avis_author">E.D.L.C<span class="avis_source">Avis Google</span></figcaption></figure><figure class="avis_card"><div class="stars">★★★★★</div><blockquote class="avis_text">« Très professionnel, à l’écoute et très souriant ! D’une gentillesse rare. »</blockquote><figcaption class="avis_author">Jemima N.<span class="avis_source">Avis Google</span></figcaption></figure><figure class="avis_card"><div class="stars">★★★★★</div><blockquote class="avis_text">« Très efficace, prise de rendez-vous en 24h. »</blockquote><figcaption class="avis_author">Zakia B.<span class="avis_source">Avis Google</span></figcaption></figure></div>
-            </div>
-
+      <div class="padding-section-large">
+        <div class="padding-global"><div class="container-large">
+          <div class="avis_header margin-bottom margin-medium">
+            <h2 class="heading-style-h2 reveal">Ils recommandent</h2>
+            <a href="https://maps.app.goo.gl/32U6B9ZrkzFY97xM7" target="_blank" rel="noopener" class="avis_score reveal">5,0<small>★★★★★ · 36 avis Google</small></a>
           </div>
-        </div>
+        </div></div>
+        <div class="avis_marquee" id="avis"></div>
       </div>
     </section>
 
-    <!-- ===================== FAQ ===================== -->
+    <!-- ===== FAQ ===== -->
     <section class="section_faq">
-      <div class="padding-global">
-        <div class="container-medium">
-          <div class="padding-section-large">
-
-            <div class="section-header is-center margin-bottom margin-large">
-              <div class="margin-bottom margin-xsmall"><div class="tag">FAQ</div></div>
-              <h2 class="heading-style-h2">Questions fréquentes</h2>
-            </div>
-
-            <div class="faq_list">
-              <details class="faq_item" open>
-                <summary class="faq_question">L'enlèvement est-il vraiment gratuit ?<span class="faq_icon">+</span></summary>
-                <p class="faq_answer">Oui, l'enlèvement de votre épave est 100 % gratuit partout en Île-de-France.</p>
-              </details>
-              <details class="faq_item">
-                <summary class="faq_question">Rachetez-vous les véhicules ?<span class="faq_icon">+</span></summary>
-                <p class="faq_answer">Oui, on rachète les véhicules dans l'état, roulants ou non. Appelez-nous pour une offre.</p>
-              </details>
-              <details class="faq_item">
-                <summary class="faq_question">En combien de temps intervenez-vous ?<span class="faq_icon">+</span></summary>
-                <p class="faq_answer">Sous 24h en moyenne, et en 1 à 2h pour les urgences.</p>
-              </details>
-              <details class="faq_item">
-                <summary class="faq_question">Quels documents fournir ?<span class="faq_icon">+</span></summary>
-                <p class="faq_answer">Carte grise et pièce d'identité. Carte grise perdue ou véhicule gagé ? Appelez-nous, chaque situation est étudiée.</p>
-              </details>
-              <details class="faq_item">
-                <summary class="faq_question">Êtes-vous agréé ?<span class="faq_icon">+</span></summary>
-                <p class="faq_answer">Oui, nous travaillons avec un centre VHU agréé par la préfecture (n° PR9100012D).</p>
-              </details>
-            </div>
-
-          </div>
+      <div class="padding-global"><div class="container-large"><div class="padding-section-large">
+        <h2 class="heading-style-h2 margin-bottom margin-medium reveal">Questions fréquentes</h2>
+        <div class="faq_list">
+          <details class="faq_item reveal"><summary class="faq_question">C'est vraiment gratuit ?<span class="faq_icon">+</span></summary><p class="faq_answer">Oui, 0 € partout en Île-de-France.</p></details>
+          <details class="faq_item reveal"><summary class="faq_question">Vous rachetez les véhicules ?<span class="faq_icon">+</span></summary><p class="faq_answer">Oui, roulants ou non. Envoyez une photo pour une offre.</p></details>
+          <details class="faq_item reveal"><summary class="faq_question">Quels papiers fournir ?<span class="faq_icon">+</span></summary><p class="faq_answer">Carte grise et pièce d'identité. Carte grise perdue ? On trouve une solution.</p></details>
         </div>
-      </div>
+      </div></div></div>
     </section>
 
-    <!-- ===================== CTA FINAL ===================== -->
+    <!-- ===== CTA FINAL ===== -->
     <section class="section_cta">
-      <div class="padding-global">
-        <div class="container-large">
-          <div class="padding-section-large">
-            <div class="cta_component">
-              <h2 class="heading-style-h2">Une épave à enlever ? On s'en occupe.</h2>
-              <a href="tel:+33668353538" class="cta_phone">06 68 35 25 38</a>
-              <p class="text-size-medium text-weight-semibold">Appel gratuit · Réponse immédiate · 24h/24</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="padding-global"><div class="container-large"><div class="padding-section-large">
+        <h2 class="heading-style-h2 reveal">Une épave ? Un appel.</h2>
+        <a href="tel:+33668353538" class="cta_phone">06 68 35 25 38</a>
+        <div><a href="https://wa.me/33668353538" target="_blank" rel="noopener" class="button"><svg class="icon"><use href="#i-chat"/></svg>Ou sur WhatsApp</a></div>
+      </div></div></div>
     </section>
-
   </main>
 
-  <!-- ===================== FOOTER ===================== -->
+  <!-- ===== FOOTER ===== -->
   <footer class="footer_component">
-    <div class="padding-global">
-      <div class="container-large">
-        <div class="padding-section-medium">
-          <div class="footer_top">
-            <div>
-              <div class="margin-bottom margin-small"><img src="images/logo.svg" alt="L'Epaviste IDF" class="footer_logo"></div>
-              <p>Enlèvement d'épave gratuit et rachat de véhicules en Île-de-France.</p>
-              <img src="images/centre-vhu-agree.png" alt="Centre VHU agréé" class="footer_vhu-logo" loading="lazy">
-            </div>
-            <div class="footer_contact">
-              <a href="tel:+33668353538">06 68 35 25 38</a>
-              <a href="mailto:lepaviste.iledefrance@gmail.com">lepaviste.iledefrance@gmail.com</a>
-              <span>Ouvert 24h/24 – 7j/7</span>
-            </div>
-          </div>
-          <div class="footer_legal">
-            L'Epaviste IDF – AUTO AND CO, SAS au capital de 100 € · RCS Créteil 989 480 546<br>
-            Siège : 2 rue Demanieux, 94600 Choisy-le-Roi · Centre VHU agréé n° PR9100012D<br>
-            © 2026 L'Epaviste IDF – Tous droits réservés
-          </div>
-        </div>
+    <div class="padding-global"><div class="container-large">
+      <div class="footer_top">
+        <img src="images/logo.svg" alt="L'Epaviste IDF" class="footer_logo">
+        <img src="images/centre-vhu-agree.png" alt="Centre VHU agréé" class="footer_vhu" loading="lazy">
       </div>
-    </div>
+      <div class="footer_legal">
+        L'Epaviste IDF – AUTO AND CO, SAS au capital de 100 € · RCS Créteil 989 480 546 · 2 rue Demanieux, 94600 Choisy-le-Roi<br>
+        Centre VHU agréé n° PR9100012D · lepaviste.iledefrance@gmail.com · © 2026
+      </div>
+    </div></div>
   </footer>
 
-  <!-- ===================== BOUTONS FLOTTANTS ===================== -->
-  <a href="https://wa.me/33668353538?text=Bonjour%2C%20j%27ai%20un%20v%C3%A9hicule%20%C3%A0%20faire%20enlever" target="_blank" rel="noopener" class="float_whatsapp" aria-label="WhatsApp">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-  </a>
-
+  <a href="tel:+33668353538" class="button float-call is-pulse"><svg class="icon"><use href="#i-phone"/></svg>Appeler</a>
   <div class="mobile-bar_component">
-    <a href="tel:+33668353538" class="button is-pulse"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Appeler</a>
-    <a href="https://wa.me/33668353538?text=Bonjour%2C%20j%27ai%20un%20v%C3%A9hicule%20%C3%A0%20faire%20enlever" target="_blank" rel="noopener" class="button is-whatsapp">WhatsApp</a>
+    <a href="tel:+33668353538" class="button is-pulse"><svg class="icon"><use href="#i-phone"/></svg>Appeler</a>
+    <a href="https://wa.me/33668353538" target="_blank" rel="noopener" class="button is-whatsapp">WhatsApp</a>
   </div>
 
-</div>
-
 <script>
-  // Apparition au scroll : on ajoute .reveal aux blocs, avec un léger décalage entre éléments voisins
-  (function () {
-    var selectors = '.section-header, .services_card, .vehicules_component, .process_card, .zones_content, .zones_item, .galerie_item, .avis_header, .faq_item, .cta_component';
-    var items = document.querySelectorAll(selectors);
-    if (!('IntersectionObserver' in window)) return;
+(function () {
+  var WA = '33668353538';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    items.forEach(function (el) {
-      // Index de l'élément parmi ses frères du même type → délai en cascade
-      var siblings = Array.prototype.filter.call(el.parentNode.children, function (s) { return s.matches(selectors); });
-      var index = siblings.indexOf(el);
-      el.style.setProperty('--delay', (index * 0.08) + 's');
-      el.classList.add('reveal');
-    });
+  // --- Galerie et avis : on génère les éléments puis on les duplique pour une boucle sans coupure
+  var photos = ['galerie-1','galerie-2','galerie-3','galerie-4','galerie-5','galerie-6','galerie-7','galerie-8'];
+  var avis = [
+    ['Esra G.', 'Très professionnel, efficace et en plus très gentil. L’intervention a été rapide.'],
+    ['Samia B.', 'Ils sont venus chercher mon véhicule le jour même. Pour les papiers, ils s’occupent de tout.'],
+    ['E.D.L.C', 'Si vous souhaitez enlever vos véhicules, allez-y les yeux fermés.'],
+    ['Jemima N.', 'Très professionnel, à l’écoute et très souriant ! D’une gentillesse rare.'],
+    ['Zakia B.', 'Très efficace, prise de rendez-vous en 24h.']
+  ];
+  function loop(el, html) { el.innerHTML = '<div class="galerie_track avis_track">' + html + '</div><div class="galerie_track avis_track" aria-hidden="true">' + html + '</div>'; }
+  loop(document.getElementById('galerie'), photos.map(function (p) { return '<div class="galerie_item"><img src="images/' + p + '.jpg" alt="Enlèvement d’épave en Île-de-France" loading="lazy"></div>'; }).join(''));
+  loop(document.getElementById('avis'), avis.map(function (a) { return '<figure class="avis_card"><div class="stars">★★★★★</div><blockquote class="avis_text">« ' + a[1] + ' »</blockquote><figcaption class="avis_author">' + a[0] + ' · Avis Google</figcaption></figure>'; }).join(''));
 
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
+  // --- Titre du hero découpé mot par mot (animation en cascade)
+  var h1 = document.querySelector('[data-split]');
+  if (h1 && !reduce) {
+    var i = 0;
+    (function split(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (n) {
+        if (n.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(function (w) {
+            if (!w.trim()) { frag.appendChild(document.createTextNode(w)); return; }
+            var o = document.createElement('span'); o.className = 'split-word';
+            var s = document.createElement('span'); s.textContent = w; s.style.animationDelay = (0.2 + i++ * 0.09) + 's';
+            o.appendChild(s); frag.appendChild(o);
+          });
+          node.replaceChild(frag, n);
+        } else if (n.nodeType === 1) split(n);
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    })(h1);
+  }
 
-    items.forEach(function (el) { observer.observe(el); });
-  })();
+  // --- Apparitions au scroll + compteurs + ligne des étapes
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('is-visible');
+      if (e.target.dataset.count !== undefined) count(e.target);
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.reveal').forEach(function (el) {
+    var sib = Array.prototype.filter.call(el.parentNode.children, function (s) { return s.classList.contains('reveal'); });
+    el.style.setProperty('--delay', (sib.indexOf(el) * 0.07) + 's');
+    io.observe(el);
+  });
+  document.querySelectorAll('[data-count],[data-line]').forEach(function (el) { io.observe(el); });
+
+  function count(el) {
+    var end = +el.dataset.count, t0 = null;
+    if (reduce || end === 0) { el.textContent = end; return; }
+    requestAnimationFrame(function step(t) {
+      t0 = t0 || t; var p = Math.min((t - t0) / 1200, 1);
+      el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(step);
+    });
+  }
+
+  // --- Navbar opaque + bouton d'appel flottant après le hero
+  var nav = document.querySelector('.navbar_component'), fc = document.querySelector('.float-call');
+  function onScroll() { var y = window.scrollY; nav.classList.toggle('is-scrolled', y > 40); fc.classList.toggle('is-visible', y > window.innerHeight * 0.8); }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // --- Formulaire express → WhatsApp pré-rempli
+  document.getElementById('quote').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = e.target;
+    var msg = 'Bonjour, ' + f.besoin.value.toLowerCase() + ' pour un véhicule (' + f.etat.value.toLowerCase() + ') dans le ' + f.dep.value + '.';
+    track('Lead', 'formulaire');
+    window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank');
+  });
+
+  // --- Tracking Ads : clics appel / WhatsApp (Google Ads, GTM, Meta Pixel si installés)
+  function track(name, label) {
+    if (window.dataLayer) dataLayer.push({ event: 'contact_click', contact_type: label });
+    if (window.gtag) gtag('event', 'contact_click', { contact_type: label });
+    if (window.fbq) fbq('track', name === 'Lead' ? 'Lead' : 'Contact', { method: label });
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="tel:"], a[href*="wa.me"]');
+    if (a) track('Contact', a.href.indexOf('tel:') === 0 ? 'appel' : 'whatsapp');
+  });
+})();
 </script>
 </body>
 </html>
