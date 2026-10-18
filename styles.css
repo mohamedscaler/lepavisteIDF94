@@ -262,7 +262,7 @@ select.contact_input { appearance: none; cursor: pointer; }
 .footer_place { grid-column: 8 / 10; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; }
 .footer_place img { width: 120px; background: #fff; padding: 4px; }
 .footer_mail { grid-column: 10 / 13; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; }
-.footer_mail a { font-weight: 500; overflow-wrap: anywhere; }
+.footer_mail a { font-weight: 500; overflow-wrap: normal; }
 .footer_word { grid-column: 1 / 9; min-height: 300px; display: flex; align-items: center; justify-content: center; background: var(--color-ink); }
 .footer_word img { width: min(80%, 820px); height: auto; aspect-ratio: 1527 / 478; }
 .footer_cta { grid-column: 9 / 13; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: 300px; transition: background 0.2s; }
