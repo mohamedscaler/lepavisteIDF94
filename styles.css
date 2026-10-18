@@ -333,7 +333,7 @@ select.contact_input { appearance: none; cursor: pointer; }
   .navbar_inner { gap: 8px; }
   .trustbar_hours { display: none; }
   .hero_board { grid-template-rows: auto; }
-  .hero_title { grid-column: 1 / -1; grid-row: auto; min-height: 46svh; }
+  .hero_title { grid-column: 1 / -1; grid-row: auto; min-height: 0; gap: 48px; }
   .hero_photo-a { grid-column: 1 / -1; grid-row: auto; aspect-ratio: 4 / 3; }
   .hero_photo-b { display: none; }
   .hero_statement, .hero_action { grid-column: span 6; grid-row: auto; min-height: 220px; }
