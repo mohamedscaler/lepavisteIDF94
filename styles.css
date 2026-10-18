@@ -264,7 +264,7 @@ select.contact_input { appearance: none; cursor: pointer; }
 .footer_mail { grid-column: 10 / 13; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; }
 .footer_mail a { font-weight: 500; overflow-wrap: anywhere; }
 .footer_word { grid-column: 1 / 9; min-height: 300px; display: flex; align-items: center; justify-content: center; background: var(--color-ink); }
-.footer_word img { width: min(80%, 820px); }
+.footer_word img { width: min(80%, 820px); height: auto; aspect-ratio: 1527 / 478; }
 .footer_cta { grid-column: 9 / 13; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; min-height: 300px; transition: background 0.2s; }
 .footer_cta:hover { background: var(--color-accent-hover); }
 .footer_cta strong { font-size: var(--step-statement); line-height: 1.1; font-weight: 700; letter-spacing: -0.015em; }
@@ -302,7 +302,7 @@ select.contact_input { appearance: none; cursor: pointer; }
 .faq_band:nth-child(odd) { background: var(--color-tile); }
 .faq_band h3 { grid-column: 1 / 6; font-size: var(--step-lead); line-height: 1.15; letter-spacing: -0.01em; }
 .faq_band p { grid-column: 7 / 13; max-width: 40rem; }
-.faq_heading { background: var(--color-accent); color: #fff; min-height: 36svh; display: flex; align-items: flex-end; padding: var(--pad) var(--margin); }
+.faq_heading { padding-bottom: 40px; }
 
 /* =========================================================
    MOUVEMENT
@@ -386,5 +386,21 @@ select.contact_input { appearance: none; cursor: pointer; }
   .about_columns { grid-template-columns: 1fr; }
   .about_band { grid-template-columns: 1fr 1fr; grid-template-rows: 220px 180px; height: auto; }
   .about_band .tile:first-child { grid-column: 1 / -1; }
-  .chain_item:nth-child(n) { grid-column: 1 / -1; min-height: 0; }
+  .chain_item:nth-child(n) { grid-column: 1 / -1; min-height: 0; gap: 12px; }
+  /* Corrections mobile */
+  .about_hero { grid-template-rows: auto; }
+  .about_title { min-height: 0; padding-top: 40px; }
+  .footer_word { display: none; }
+  .footer_cta { min-height: 150px; }
+  .gallery_row { height: 46svh; min-height: 280px; }
+  .zones_item { flex-direction: column; align-items: flex-start; justify-content: flex-end; flex-wrap: nowrap; gap: 6px; min-height: 0; padding: 18px; }
+  .zones_number { font-size: 2.25rem; }
+  .zones_name { font-size: 0.9375rem; line-height: 1.25; }
+  .zones_photo { min-height: 260px; }
+  .accept_head { padding-right: 0; }
+  .contact_body { padding-top: 48px; }
+  .contact_form { gap: 4px; }
+  .papers_result { min-height: 0; }
+  .steps_text { gap: 32px; }
+  .review_quote { padding: 28px 20px; gap: 28px; }
 }
