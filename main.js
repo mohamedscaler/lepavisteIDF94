@@ -7,43 +7,45 @@
   /* --- Menu mobile --- */
   var toggle = document.querySelector('.navbar_toggle');
   var menu = document.querySelector('.navbar_menu');
+  function setMenu(open) {
+    menu.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', open);
+    toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+  }
   if (toggle && menu) {
-    toggle.addEventListener('click', function () {
-      var open = menu.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', open);
-      toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
-    });
-    menu.addEventListener('click', function (e) { if (e.target.closest('a')) { menu.classList.remove('is-open'); toggle.setAttribute('aria-expanded', false); toggle.setAttribute('aria-label', 'Ouvrir le menu'); } });
+    toggle.addEventListener('click', function () { setMenu(!menu.classList.contains('is-open')); });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
   }
 
-  /* --- Barre collante : ombre dès qu'elle flotte --- */
+  /* --- Ombre sous la barre quand on défile --- */
   var nav = document.querySelector('.navbar_component');
-  function onScroll() { if (nav) nav.classList.toggle('is-scrolled', nav.getBoundingClientRect().top <= 0 && window.scrollY > 60); }
+  function onScroll() { if (nav) nav.classList.toggle('is-scrolled', window.scrollY > 80); }
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
-  /* --- Entrées au scroll, en cascade dans chaque groupe --- */
-  var groups = document.querySelectorAll('[data-reveal-group]');
-  groups.forEach(function (g) {
-    g.querySelectorAll('[data-reveal]').forEach(function (el, i) { el.style.setProperty('--delay', Math.min(i * 0.075, 0.6) + 's'); });
+  /* --- Défilements infinis : on duplique le contenu pour une boucle sans coupure --- */
+  document.querySelectorAll('[data-marquee]').forEach(function (el) {
+    el.innerHTML += el.innerHTML;
+    el.querySelectorAll(':scope > *').forEach(function (c, i, all) { if (i >= all.length / 2) c.setAttribute('aria-hidden', 'true'); });
+  });
+
+  /* --- Apparitions au scroll, en cascade par groupe --- */
+  document.querySelectorAll('[data-reveal-group]').forEach(function (g) {
+    g.querySelectorAll('[data-reveal]').forEach(function (el, i) { el.style.setProperty('--delay', Math.min(i * 0.08, 0.64) + 's'); });
   });
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
   }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('[data-reveal], .is-shutter').forEach(function (el) { io.observe(el); });
+  document.querySelectorAll('[data-reveal], .steps_grid').forEach(function (el) { io.observe(el); });
 
-  /* --- Galerie : glisser à la souris (le doigt marche nativement) --- */
-  document.querySelectorAll('.gallery_row').forEach(function (row) {
-    var down = false, startX = 0, startScroll = 0, moved = false;
-    row.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') return; down = true; moved = false; startX = e.clientX; startScroll = row.scrollLeft; row.classList.add('is-dragging'); });
-    window.addEventListener('pointermove', function (e) { if (!down) return; var dx = e.clientX - startX; if (Math.abs(dx) > 4) moved = true; row.scrollLeft = startScroll - dx; });
-    window.addEventListener('pointerup', function () { down = false; row.classList.remove('is-dragging'); });
-    row.addEventListener('click', function (e) { if (moved) e.preventDefault(); }, true);
-  });
+  /* --- Vidéo du hero : coupée si l'utilisateur réduit les animations --- */
+  var video = document.querySelector('.hero_media video');
+  if (video && reduce) { video.removeAttribute('autoplay'); video.pause(); }
 
-  /* --- Outil « Vos papiers » : affiche la liste selon la situation --- */
+  /* --- Outil « Vos papiers » --- */
   var tool = document.querySelector('[data-papers]');
   if (tool) {
     var panels = tool.querySelectorAll('.papers_panel');
+    panels.forEach(function (p, i) { p.hidden = i !== 0; }); // sans JS, tout reste visible
     tool.addEventListener('change', function (e) {
       if (!e.target.matches('input[name="situation"]')) return;
       panels.forEach(function (p) {
@@ -51,36 +53,34 @@
         p.hidden = !on;
         if (on && !reduce) { p.classList.remove('is-in'); void p.offsetWidth; p.classList.add('is-in'); }
       });
-      track('papers_situation', e.target.value);
     });
-    // Sans JS, tous les panneaux restent visibles ; avec JS on n'affiche que le premier
-    panels.forEach(function (p, i) { p.hidden = i !== 0; });
   }
 
-  /* --- Formulaire de contact → message WhatsApp pré-rempli --- */
-  var form = document.querySelector('[data-contact]');
-  if (form) {
+  /* --- Formulaires → message WhatsApp pré-rempli (aucune donnée stockée) --- */
+  document.querySelectorAll('[data-wa-form]').forEach(function (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var ok = true;
       form.querySelectorAll('[required]').forEach(function (f) {
         var err = form.querySelector('[data-error-for="' + f.name + '"]');
-        var bad = !f.value.trim() || (f.name === 'tel' && f.value.replace(/\D/g, '').length < 10);
-        if (err) err.textContent = bad ? (f.name === 'tel' ? 'Indiquez un numéro à 10 chiffres.' : 'Ce champ est nécessaire.') : '';
+        var bad = !f.value.trim() || (f.type === 'tel' && f.value.replace(/\D/g, '').length < 10);
+        if (err) err.textContent = bad ? (f.type === 'tel' ? 'Indiquez un numéro à 10 chiffres.' : 'Ce champ est nécessaire.') : '';
         f.setAttribute('aria-invalid', bad);
         if (bad && ok) { f.focus(); ok = false; }
       });
       if (!ok) return;
-      var d = new FormData(form);
-      var msg = 'Bonjour, je souhaite faire enlever un véhicule.\n' +
-        'Nom : ' + d.get('nom') + '\nTéléphone : ' + d.get('tel') + '\nCode postal : ' + d.get('cp') +
-        '\nVéhicule : ' + d.get('vehicule') + (d.get('immat') ? '\nImmatriculation : ' + d.get('immat') : '');
+      var lines = ['Bonjour, je souhaite faire enlever un véhicule.'];
+      new FormData(form).forEach(function (v, k) {
+        if (!String(v).trim()) return;
+        var label = form.querySelector('[name="' + k + '"]').dataset.label || k;
+        lines.push(label + ' : ' + v);
+      });
       track('Lead', 'formulaire');
-      window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
+      window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
     });
-  }
+  });
 
-  /* --- Suivi Ads : appels, WhatsApp, formulaire (Google Ads / GTM / Meta Pixel s'ils sont installés) --- */
+  /* --- Suivi Ads : appels, WhatsApp, formulaires (Google Ads / GTM / Meta Pixel s'ils sont installés) --- */
   function track(name, label) {
     if (window.dataLayer) window.dataLayer.push({ event: 'contact_click', contact_type: label });
     if (window.gtag) window.gtag('event', 'contact_click', { contact_type: label });
