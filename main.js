@@ -11,9 +11,9 @@
     toggle.addEventListener('click', function () {
       var open = menu.classList.toggle('is-open');
       toggle.setAttribute('aria-expanded', open);
-      toggle.textContent = open ? 'Fermer' : 'Menu';
+      toggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
     });
-    menu.addEventListener('click', function (e) { if (e.target.closest('a')) { menu.classList.remove('is-open'); toggle.setAttribute('aria-expanded', false); toggle.textContent = 'Menu'; } });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a')) { menu.classList.remove('is-open'); toggle.setAttribute('aria-expanded', false); toggle.setAttribute('aria-label', 'Ouvrir le menu'); } });
   }
 
   /* --- Barre collante : ombre dès qu'elle flotte --- */
