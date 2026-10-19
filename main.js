@@ -1,6 +1,6 @@
 /* L'Epaviste IDF — scripts communs */
 (function () {
-  var WA = '33668353538';
+  var WA = '33745226753';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   document.documentElement.classList.add('js');
 
