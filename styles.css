@@ -443,3 +443,13 @@ select.form_input { appearance: none; cursor: pointer; background-image: url("da
   .mobile-bar { display: grid; grid-template-columns: 1.3fr 1fr; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; padding: 10px; background: #fff; box-shadow: 0 -8px 24px rgba(11, 42, 30, 0.12); }
   .mobile-bar .button { min-height: 52px; padding: 0 12px; }
 }
+
+/* ===== MENTIONS LÉGALES ===== */
+.page_hero.is-small .page_hero_inner { grid-template-columns: 1fr; padding: 4rem 0 3.5rem; }
+.legal_content { max-width: 48rem; }
+.legal_content h2 { font-family: var(--font-head); font-size: 1.5rem; font-weight: 800; text-transform: uppercase; margin: 2.5rem 0 0.75rem; }
+.legal_content h2:first-child { margin-top: 0; }
+.legal_content p { color: var(--color-ink-soft); margin-bottom: 0.75rem; }
+.legal_content a { color: var(--color-green); text-decoration: underline; text-underline-offset: 2px; }
+.footer_bottom a { text-decoration: underline; text-underline-offset: 2px; }
+.footer_bottom a:hover { color: #fff; }
