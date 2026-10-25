@@ -453,3 +453,30 @@ select.form_input { appearance: none; cursor: pointer; background-image: url("da
 .legal_content a { color: var(--color-green); text-decoration: underline; text-underline-offset: 2px; }
 .footer_bottom a { text-decoration: underline; text-underline-offset: 2px; }
 .footer_bottom a:hover { color: #fff; }
+
+/* ===== AGRÉMENT DANS LE HERO ===== */
+.hero_vhu { display: inline-flex; align-items: center; gap: 12px; margin-top: 2rem; font-size: 1rem; }
+.hero_vhu img { height: 52px; width: auto; background: #fff; padding: 4px 6px; border-radius: 6px; }
+.hero_vhu strong { font-weight: 700; }
+.hero_vhu + .hero_checks { margin-top: 1rem; }
+@media (max-width: 767px) {
+  /* le premier écran mobile = uniquement le bloc d'accroche (entre la barre du haut et la barre d'appel du bas) */
+  .section_hero .hero_inner { padding-top: 0; }
+  .section_hero .hero_animate { min-height: calc(100svh - 72px - 76px); display: flex; flex-direction: column; justify-content: center; padding: 1.25rem 0; }
+  .hero_vhu { margin-top: 1.25rem; font-size: 0.9375rem; }
+  .hero_vhu img { height: 44px; }
+  .hero_vhu + .hero_checks { margin-top: 0.75rem; gap: 6px 16px; }
+}
+@media (max-width: 767px) and (max-height: 720px) {
+  /* petits écrans (iPhone SE…) : on resserre pour que tout tienne */
+  .section_hero .heading-style-h1 { font-size: 2.5rem; }
+  .section_hero .hero_subtitle { margin: 0.75rem 0 1rem; font-size: 1rem; }
+  .section_hero .hero_buttons .button { min-height: 50px; }
+  .hero_rating { padding: 6px 12px; font-size: 0.875rem; }
+  .hero_vhu { margin-top: 1rem; }
+  .hero_vhu img { height: 38px; }
+}
+@media (max-width: 767px) and (max-height: 700px) {
+  .section_hero .hero_subtitle { display: none; }
+  .section_hero .hero_buttons { margin-top: 1.25rem; }
+}
