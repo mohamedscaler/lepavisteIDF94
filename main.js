@@ -81,9 +81,11 @@
   });
 
   /* --- Suivi Ads : appels, WhatsApp, formulaires (Google Ads / GTM / Meta Pixel s'ils sont installés) --- */
+  // Conversions Google Ads (compte LEPAVISTE IDF)
+  var ADS = { appel: 'AW-17410215001/KVwACLfAsakdENmY6-1A', whatsapp: 'AW-17410215001/IJ4oCLrAsakdENmY6-1A', formulaire: 'AW-17410215001/IJ4oCLrAsakdENmY6-1A' };
   function track(name, label) {
+    if (window.gtag && ADS[label]) window.gtag('event', 'conversion', { send_to: ADS[label] });
     if (window.dataLayer) window.dataLayer.push({ event: 'contact_click', contact_type: label });
-    if (window.gtag) window.gtag('event', 'contact_click', { contact_type: label });
     if (window.fbq) window.fbq('track', name === 'Lead' ? 'Lead' : 'Contact', { method: label });
   }
   document.addEventListener('click', function (e) {
