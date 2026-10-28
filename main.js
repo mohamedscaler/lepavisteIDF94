@@ -56,10 +56,14 @@
     });
   }
 
-  /* --- Formulaires → message WhatsApp pré-rempli (aucune donnée stockée) --- */
-  document.querySelectorAll('[data-wa-form]').forEach(function (form) {
+  /* --- Formulaires → demande envoyée par e-mail (FormSubmit) --- */
+  var MAIL = 'https://formsubmit.co/ajax/lepaviste.iledefrance@gmail.com';
+  document.querySelectorAll('[data-mail-form]').forEach(function (form) {
+    var status = form.querySelector('[data-form-status]');
+    var btn = form.querySelector('button[type="submit"]');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      // Vérification des champs obligatoires
       var ok = true;
       form.querySelectorAll('[required]').forEach(function (f) {
         var err = form.querySelector('[data-error-for="' + f.name + '"]');
@@ -68,15 +72,28 @@
         f.setAttribute('aria-invalid', bad);
         if (bad && ok) { f.focus(); ok = false; }
       });
-      if (!ok) return;
-      var lines = ['Bonjour, je souhaite faire enlever un véhicule.'];
+      if (!ok || form.classList.contains('is-sending')) return;
+      // Données envoyées avec les intitulés lisibles (comme l'ancien site)
+      var data = { _subject: "Nouvelle demande depuis L'Épaviste IDF", _template: 'table', _captcha: 'false', Page: location.pathname };
       new FormData(form).forEach(function (v, k) {
-        if (!String(v).trim()) return;
-        var label = form.querySelector('[name="' + k + '"]').dataset.label || k;
-        lines.push(label + ' : ' + v);
+        var field = form.querySelector('[name="' + k + '"]');
+        if (k === '_honey') { data._honey = v; return; }
+        if (String(v).trim()) data[(field && field.dataset.label) || k] = v;
       });
-      track('Lead', 'formulaire');
-      window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
+      if (data.Email) data._replyto = data.Email;
+      form.classList.add('is-sending'); btn.disabled = true;
+      fetch(MAIL, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(data) })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function () {
+          track('Lead', 'formulaire');
+          form.classList.add('is-sent');
+          form.innerHTML = '<div class="form_success"><p class="form_success_title">Demande envoyée ✓</p><p>Merci, on vous rappelle très vite au numéro indiqué.</p><p>Urgent ? Appelez le <a href="tel:+33189701914">01 89 70 19 14</a></p></div>';
+        })
+        .catch(function () {
+          form.classList.remove('is-sending'); btn.disabled = false;
+          status.innerHTML = "Envoi impossible pour le moment. Appelez le <a href=\"tel:+33189701914\">01 89 70 19 14</a> ou <a href=\"https://wa.me/" + WA + "\" target=\"_blank\" rel=\"noopener\">écrivez-nous sur WhatsApp</a>.";
+          status.classList.add('is-error');
+        });
     });
   });
 

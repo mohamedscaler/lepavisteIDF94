@@ -480,3 +480,16 @@ select.form_input { appearance: none; cursor: pointer; background-image: url("da
   .section_hero .hero_subtitle { display: none; }
   .section_hero .hero_buttons { margin-top: 1.25rem; }
 }
+
+/* ===== FORMULAIRES PAR E-MAIL ===== */
+.form_row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+textarea.form_input { min-height: 110px; padding: 12px 16px; resize: vertical; font: inherit; }
+.form_honey { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.form_note a { color: var(--color-green); font-weight: 600; text-decoration: underline; }
+.form_note.is-error { color: #c0392b; }
+.is-sending button[type="submit"] { opacity: 0.6; cursor: wait; }
+.form_success { grid-column: 1 / -1; text-align: center; padding: 2rem 0.5rem; }
+.form_success_title { font-family: var(--font-head); font-size: 1.75rem; font-weight: 800; text-transform: uppercase; color: var(--color-green); margin-bottom: 0.5rem; }
+.form_success p + p { margin-top: 0.5rem; color: var(--color-ink-soft); }
+.form_success a { color: var(--color-green); font-weight: 700; }
+@media (max-width: 400px) { .form_row { grid-template-columns: 1fr; gap: 0; } }
