@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;0,800;1,800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="images/hero.jpg">
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
   <!-- Balise Google Ads (conversions : clic Appeler / clic WhatsApp, envoyées par main.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17410215001"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-17410215001');</script>
@@ -81,13 +81,14 @@
           <p class="hero_subtitle">Paris et toute l'Île-de-France. On se déplace sous 24h, en 1 à 2h pour les urgences.</p>
           <div class="hero_buttons">
             <a href="tel:+33189701914" class="button is-large is-shine"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg>Appeler le 01 89 70 19 14</a>
-            <a href="https://wa.me/33745226753" target="_blank" rel="noopener" class="button is-outline is-large"><svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg>Envoyer une photo</a>
+            <a href="https://wa.me/33745226753" target="_blank" rel="noopener" class="button is-outline is-large is-half"><svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg><span class="hide-mobile">Envoyer une photo</span><span class="show-mobile">WhatsApp</span></a>
+            <a href="#demande" class="button is-outline is-large is-half show-tablet" data-goto-form><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg>Être rappelé</a>
           </div>
           <div class="hero_vhu"><img src="images/centre-vhu-agree.png" alt="Logo officiel Centre VHU agréé" width="109" height="58"><span><strong>Centre VHU agréé</strong> n° PR9100012D</span></div>
           <ul class="hero_checks"><li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>0 € de remorquage</li><li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Papiers pris en charge</li></ul>
         </div>
 
-        <form class="quote_card hero_card_in" data-mail-form novalidate>
+        <form class="quote_card hero_card_in" id="demande" data-mail-form novalidate>
           <p class="quote_title">Demande d'enlèvement</p>
           <p class="quote_sub">Gratuit et sans engagement. On vous rappelle.</p>
           <div class="form_field"><label for="q-nom">Nom complet</label><input class="form_input" id="q-nom" name="nom" autocomplete="name" required data-label="Nom complet"><span class="form_error" data-error-for="nom"></span></div>
@@ -328,6 +329,6 @@
     <a href="https://wa.me/33745226753" target="_blank" rel="noopener" class="button is-whatsapp"><svg class="icon" aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp</a>
   </div>
 
-  <script src="main.js?v=7" defer></script>
+  <script src="main.js?v=8" defer></script>
 </body>
 </html>

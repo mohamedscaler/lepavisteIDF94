@@ -56,6 +56,18 @@
     });
   }
 
+  /* --- Bouton « Être rappelé » : descend au formulaire et place le curseur sur le nom --- */
+  document.querySelectorAll('[data-goto-form]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var form = document.querySelector('#demande');
+      if (!form) return;
+      e.preventDefault();
+      form.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      var first = form.querySelector('input');
+      if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, reduce ? 0 : 600);
+    });
+  });
+
   /* --- Formulaires → demande envoyée par e-mail (FormSubmit) --- */
   var MAIL = 'https://formsubmit.co/ajax/lepaviste.iledefrance@gmail.com';
   document.querySelectorAll('[data-mail-form]').forEach(function (form) {
